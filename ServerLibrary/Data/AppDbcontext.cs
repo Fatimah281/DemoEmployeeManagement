@@ -13,6 +13,7 @@ namespace ServerLibrary.Data
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<SystemRole> SystemRole { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
+        public DbSet<refreshTokenInfo> RefreshTokenInfo { get; set; }
 
     }
 }

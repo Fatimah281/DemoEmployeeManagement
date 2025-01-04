@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using ServerLibrary.Data;
 using ServerLibrary.Helpers;
@@ -21,6 +22,17 @@ builder.Services.AddDbContext<AppDbcontext>(options =>
 
 builder.Services.Configure<JwtSection>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddScoped<IUserAccount, UserAccountRepository>();
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllBlazorWasm", builder =>
+    {
+        builder.WithOrigins("https://localhost:5245", "https://localhost:7239")
+        .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -32,7 +44,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowAllBlazorWasm");
 app.UseAuthorization();
 
 app.MapControllers();
