@@ -1,14 +1,23 @@
-﻿@inherits LayoutComponentBase
+﻿
+@inherits LayoutComponentBase
+
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
 
     <main>
-        <div class="top-row px-4">
-            <a class="btn btn-none" href="identity/account/login">Login</a>
-            <a class="btn btn-none" href="identity/account/login">Register</a>
-            <a class="btn btn-none text-danger" @onclick="LogoutClicked">Register</a>
+        <div class="top-row px-4"> 
+            <AuthorizeView>
+                <Authorized>
+                    <a class="btn btn-none text-danger" @onclick="LogoutClicked">Logout</a>
+                </Authorized>
+                <NotAuthorized>
+                    <a class="btn btn-none text-primary" href="identity/account/login">Login</a>
+                    <a class="btn btn-none text-primary" href="identity/account/register">Register</a>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">
@@ -18,11 +27,11 @@
 </div>
 
 @code {
-     async Task LogoutClicked()
+    async Task LogoutClicked()
     {
         var logoutModel = new UserSession();
-        var customAuthStateProvider = (AuthenticationStateProvider)customAuthStateProvider;
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)AuthenticationStateProvider;
         await customAuthStateProvider.UpdateAuthenticationState(logoutModel);
-        NavManger.NavigateTo("/", forcLoad:true);
+        NavManger.NavigateTo("/", forceLoad: true);
     }
 }

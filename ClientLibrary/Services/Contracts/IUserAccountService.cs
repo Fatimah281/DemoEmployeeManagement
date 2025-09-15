@@ -7,7 +7,7 @@ namespace ClientLibrary.Services.Contracts
     {
         Task<GeneralResponse> CreateAsync(Register user);
         Task<LoginResponse> SignInAsync(Login user);
-        Task<LoginResponse> RefreshToken(RefreshToken token);
+        Task<LoginResponse> RefreshTokenAsync(RefreshToken token);
         Task<WeatherForecast[]> GetWeatherForecasts();
 
     }
