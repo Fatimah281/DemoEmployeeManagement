@@ -14,7 +14,7 @@ builder.Services.AddHttpClient("SystemApiClient", Client =>
 {
 	Client.BaseAddress = new Uri("https://localhost:7294");
 }).AddHttpMessageHandler<customHttpHandler>();
-//builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7069") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7069") });
 builder.Services.AddAuthorizationCore();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped<GetHttpClient>();
