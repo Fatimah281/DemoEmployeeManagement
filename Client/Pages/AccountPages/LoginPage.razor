@@ -2,32 +2,47 @@
 @layout AuthenticationLayout
 
 <div class="container">
- <div class="row">
-        <div class="col-lg-6">
-            
-            <EditForm Enhance Model="User" OnValidSubmit="HandleLogin">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-                <div class="card">
-                   <div class="card-header"> Fill this form to Login</div>
-                   <div class=" card-body"> 
-
-                       <div class=" form-group mt-3">
-                            <label class="form-label">Email</label>
-                            <InputText  class="form-control" @bind-Value="User.Email" />
-                       </div>
-                       <div class=" form-group mt-3">
-                            <label class="form-label" >Password</label>
-                            <InputText type="password" class="form-control" @bind-Value="User.Password" />
-                   </div>
-                       <div class=" form-group mt-3">
-                            <button class="btn btn-outline-primary float-end" type="submit">Login</button>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="col-lg-4">
+                <EditForm Enhance Model="User" OnValidSubmit="HandleLogin">
+                    <DataAnnotationsValidator />
+                    <div class="card bg-dark" style="opacity:0.5; margin-top:50%; border-radius:10px; color:white; font-weight:bold">
+                        <div class="card-header text-center fs-5 mb-2"> Fill this form to Login</div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4"></div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center">
+                                    <img src="images/login.png" style="width:100px; height:100px; border-radius:50%;" />
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4"></div>
                             </div>
-                </div>
-                </div>
-            </EditForm>
-          </div>
-</div>
+                            <div class="card-body">
+                                <div class="form-group mt-3">
+                                    <label class="form-label">Email</label>
+                                    <InputText class="form-control" @bind-Value="User.Email" />
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label class="form-label">Password</label>
+                                    <InputText type="password" class="form-control" @bind-Value="User.Password" />
+                                </div>
+                                <div class="form-group mt-3">
+                                    <button class="btn btn-outline-primary float-end" type="submit">Login</button>
+                                </div>
+                            </div>
+                            <div class="card-footer text-center">
+                                <span class="text-center">
+                                    Dont Have an Account?
+                                    <a href="/identity/account/register" class="text-white">Register</a>
+                                </span>
+                                <ValidationSummary />
+                            </div>
+                        </div>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
 </div>
 
 @code{
@@ -42,6 +57,5 @@
             { Token = result.Token, RefreshToken = result.RefreshToken });
             NavManger.NavigateTo("/", forceLoad: true);
         }
-        
     }
 }

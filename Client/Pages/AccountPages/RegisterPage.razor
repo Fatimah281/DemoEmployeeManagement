@@ -1,0 +1,70 @@
+﻿@page "/identity/account/register"
+@layout AuthenticationLayout
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <EditForm Enhance Model="User" OnValidSubmit="HandleRegistration">
+                <DataAnnotationsValidator />
+                <div class="card bg-dark" style="opacity:0.5; margin-top:50%; border-radius:10px; color:white; font-weight:bold">
+                    <div class="card-header text-center fs-5 mb-2">  Fill this form to Register</div>
+                    <div class="container">
+                        <div class=" row">
+                            <div class=" col-lg-4 col-md-4 col-sm-4"></div>
+                            <div class=" col-lg-4 col-md-4 col-sm-4 d-flex justify-content-center">
+                                <img src="images/login.png" style="width:100px; height:100px; border-radius:50%;" />
+                            </div>
+                            <div class=" col-lg-4 col-md-4 col-sm-4"></div>
+                        </div>
+                    </div> 
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <InputText @bind-Value="User.FullName" class="form-control"></InputText>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="form-label">Email</label>
+                            <InputText type="email" class="form-control" @bind-Value="User.Email" />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="form-label">Password</label>
+                            <InputText type="password" class="form-control" @bind-Value="User.Password" />
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="form-label">Confirm Password</label>
+                            <InputText type="password" class="form-control" @bind-Value="User.ConfirmPassword" />
+                        </div>
+                        <div class="form-group mt-3">
+                            <button class="btn btn-outline-primary float-end" type="submit">Register</button>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="text-center">
+                            Already have an account?
+                            <a href="/identity/account/login" class="text-primary">Login</a>
+                        </span>
+                        <ValidationSummary />
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+        <div class="col-lg-5"></div>
+    </div>
+</div>
+
+@code {
+    Register User = new();
+
+    async Task HandleRegistration()
+    {
+        var result = await accountService.CreateAsync(User);
+        if (result.Flag)
+        {
+            User = new();
+        }
+        else
+        {
+
+        }
+    }
+}
